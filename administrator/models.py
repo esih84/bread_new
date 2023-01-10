@@ -52,7 +52,7 @@ class User(AbstractBaseUser):
 
 
 class profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="pr")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone = models.IntegerField(null=True)
@@ -75,7 +75,7 @@ class post(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     count = models.IntegerField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=0)
     active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='images')
     def __str__(self):
@@ -84,7 +84,7 @@ class post(models.Model):
 
 class buy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="buy")
-    post = models.ManyToManyField(post, related_name="post")
+    post = models.ForeignKey(post, on_delete=models.CASCADE, related_name="post")
     bread_count = models.IntegerField()
     Total_price = models.IntegerField()
     arrived = models.BooleanField(default=False)

@@ -8,8 +8,8 @@ urlpatterns = [
     path('logout/', Logout, name='logout'),
     path('signup/', Register, name='signup'),
     path('post/', create_post, name="create_post"),
-    # path('profile/', profile_view, name='profile'),
-    # path('profile_save/', profile_save, name='profile_save'),
-    # path('buy/<int:id>/', Buy, name="buy"),
+    path('profile/', profile_view, name='profile'),
+    path('profile_edit/', profile_save, name='profile_save'),
+    path('buy/<int:id>/', Buy, name="buy"),
 
 ]

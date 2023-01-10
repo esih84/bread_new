@@ -48,37 +48,40 @@ def Logout(request):
     return redirect('administrator:login')
 
 
-# @login_required(login_url='/administrator/login/')
-# def profile_view(request):
-#     context = {
-#         'profile': profile.objects.get(user_id=request.user.user_id)
-#
-#     }
-#     return render(request, 'administrator/my-account.html', context)
-#
-#
-# @login_required(login_url='/administrator/login/')
-# def profile_save(request):
-#     if request.method == 'POST':
-#         user_form = UserUpdateForm(request.POST, instance=request.user)
-#         user_profile = UserProfileUpdate(request.POST, instance=request.user.profile)
-#
-#         if user_profile.is_valid() or user_form.is_valid():
-#             user_form.save()
-#             user_profile.save()
-#             # messages.success(request, 'Your profile is updated successfully')
-#             return redirect('administrator:profile')
-#
-#     else:
-#         user_form = UserUpdateForm(instance=request.user)
-#         user_profile = UserProfileUpdate(instance=request.user.profile)
-#     context = {
-#         'user_form': user_form,
-#         'user_profile': user_profile,
-#     }
-#     return render(request, 'administrator/update.html', context)
-#
-#
+@login_required(login_url='/administrator/login/')
+def profile_view(request):
+    context = {
+        'profile': profile.objects.get(user_id=request.user.user_id),
+        'post': buy.objects.filter(user_id=request.user.user_id)
+
+    }
+    return render(request, 'administrator/profile.html', context)
+
+
+@login_required(login_url='/administrator/login/')
+def profile_save(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        user_profile = UserProfileUpdate(request.POST, instance=request.user.profile)
+
+        if user_profile.is_valid() or user_form.is_valid():
+            user_form.save()
+            user_profile.save()
+            # messages.success(request, 'Your profile is updated successfully')
+            return redirect('administrator:profile')
+
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        user_profile = UserProfileUpdate(instance=request.user.profile)
+    context = {
+        'user_form': user_form,
+        'user_profile': user_profile,
+    }
+    return render(request, 'administrator/edit_profile.html', context)
+
+
+
+
 @login_required(login_url='/administrator/login/')
 def create_post(requests):
     context = {
@@ -87,17 +90,24 @@ def create_post(requests):
     return render(requests, "administrator/product.html", context)
 
 
-# def Buy(request, id):
-#     if request.method == 'POST':
-#         buys = buy_form(request.POST)
-#         if buys.is_valid():
-#             data = buys.cleaned_data
-#             price = get_object_or_404(post, id=id).price
-#             total_price = price*data['bread_count']
-#             product = buy.objects.create(user_id=request.user.id, bread_count=data['bread_count'], Total_price=total_price, discount=data['discount'], post_id=id)
-#             context = {
-#                 "product": product
-#             }
-#             return render(request, 'accounts/searchprofile.html', context)
-#
+def Buy(request, id):
+    if request.method == 'POST':
+        buys = buy_form(request.POST)
+        if buys.is_valid():
+            data = buys.cleaned_data
+            print(data)
+            price = get_object_or_404(post, id=id).price
+            total_price = price*data['bread_count']
+            buy.objects.create(user_id=request.user.user_id, bread_count=data['bread_count'], Total_price=total_price, discount=data['discount'], post_id=id)
+            posts =post.objects.get(id=id)
+            posts.count = posts.count - data['bread_count']
+            posts.save()
+            return redirect('administrator:create_post')
+    else:
+        context = {
+            "post": post.objects.get(id=id),
+        }
+        return render(request,  'administrator/shoping_cart.html', context)
+
+
 
