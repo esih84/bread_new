@@ -112,7 +112,7 @@ def Buy(request, id):
 @login_required(login_url='/administrator/login/')
 def shping_cart(request):
     context = {
-        'post': buy.objects.filter(user_id=request.user.user_id)
+        'post': buy.objects.filter(user_id=request.user.user_id).order_by("-id")
     }
     return render(request, "administrator/shoping_cart_templates.html", context)
 
