@@ -52,7 +52,6 @@ def Logout(request):
 def profile_view(request):
     context = {
         'profile': profile.objects.get(user_id=request.user.user_id),
-        'post': buy.objects.filter(user_id=request.user.user_id)
 
     }
     return render(request, 'administrator/profile.html', context)
@@ -102,7 +101,7 @@ def Buy(request, id):
             posts =post.objects.get(id=id)
             posts.count = posts.count - data['bread_count']
             posts.save()
-            return redirect('administrator:create_post')
+            return redirect('administrator:shping_cart')
     else:
         context = {
             "post": post.objects.get(id=id),
@@ -110,4 +109,24 @@ def Buy(request, id):
         return render(request,  'administrator/shoping_cart.html', context)
 
 
+@login_required(login_url='/administrator/login/')
+def shping_cart(request):
+    context = {
+        'post': buy.objects.filter(user_id=request.user.user_id)
+    }
+    return render(request, "administrator/shoping_cart_templates.html", context)
+
+
+@login_required(login_url='/administrator/login/')
+def delete(request, id):
+    url = request.META.get('HTTP_REFERER')
+
+    buy.objects.filter(id=id).delete()
+
+    return redirect(url)
+
+@login_required(login_url='/administrator/login/')
+def credit_cart(request):
+
+    return render(request, "administrator/credit_cart.html")
 

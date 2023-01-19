@@ -14,7 +14,9 @@
 </head>
 
 <body>
-    <div class="row py-5 px-4">
+    {% include 'administrator/header.html' %}
+
+    <div class="row py-5 my-6 py-6 px-4" style="margin-top: 3rem">
         <div class="col-md-5 mx-auto">
             <!-- Profile widget -->
             <div class="bg-white shadow rounded overflow-hidden">
@@ -38,24 +40,24 @@
                         <p class="font-italic mb-0">{{ profile.address }}</p>
                     </div>
                 </div>
-                <div class="py-4 px-4">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="mb-0">سفارشات اخیر</h5>
-                    </div>
-                    <div class="row">
-                        {% for posts in post %}
-                            <div class="col-lg-6 mb-5 pr-lg-1  "><img
-                                src="{{ posts.post.image.url }}"
-                                alt="" class="img-fluid rounded shadow-sm">
-                                <h4 class="mt-0 mb-0">{{ posts.post.title}}</h4>
-
-                            </div>
-
-                        {% endfor %}
-
-
-                    </div>
-                </div>
+{#                <div class="py-4 px-4">#}
+{#                    <div class="d-flex align-items-center justify-content-between mb-3">#}
+{#                        <h5 class="mb-0">سفارشات اخیر</h5>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        {% for posts in post %}#}
+{#                            <div class="col-lg-6 mb-5 pr-lg-1  "><a href="{% url 'administrator:buy' posts.post.id %}"><img#}
+{#                                src="{{ posts.post.image.url }}"#}
+{#                                alt="" class="img-fluid rounded shadow-sm"></a>#}
+{#                                <h4 class="mt-0 mb-0">{{ posts.post.title}}</h4>#}
+{##}
+{#                            </div>#}
+{##}
+{#                        {% endfor %}#}
+{##}
+{##}
+{#                    </div>#}
+{#                </div>#}
             </div>
         </div>
     </div>

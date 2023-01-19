@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+        <link href="{% static "administrator/css/nav.css" %}" rel="stylesheet">
+</head>
+<html lang="en">
+
+<header class="header" id="header">
+        <nav class="nav container">
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="{% url 'administrator:create_post' %}" class="nav__link ">
+                                <i class='bx bx-home-alt nav__icon'></i>
+                                <span class="nav__name">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{% url 'administrator:profile' %}" class="nav__link">
+                                <i class='bx bx-book-alt nav__icon'></i>
+                                <span class="nav__name">پروفایل</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{% url 'administrator:shping_cart' %}" class="nav__link ">
+                                <i class='bx bx-home-alt nav__icon'></i>
+                                <span class="nav__name">سبد خرید</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+            </nav>
+    </header>
+
+</html>

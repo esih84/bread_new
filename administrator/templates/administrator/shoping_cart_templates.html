@@ -45,25 +45,29 @@
                         <div class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
 
                                 <div class="position-relative mt-auto">
-                                <img class="img-fluid" src="{{ posts.image.url }}" alt="">
+
+                                <img class="img-fluid" src="{{ posts.post.image.url }}" alt="">
 
                                 </div>
                                 <div class=" p-5">
 
 
                                     <div style="display: flex; justify-content: space-between">
-                                        <h3 class="mb-3">{{ posts.title }}</h3>
+                                        <h3 class="mb-3">{{ posts.post.title }}</h3>
                                         <div>
 
-                                            <div class="d-inline-block " STYLE="margin-right: 10px">{{ posts.price }}</div>
+                                            <div class="d-inline-block " STYLE="margin-right: 10px">{{ posts.bread_count }} -  {{ posts.Total_price }}</div>
                                         </div>
                                     </div>
                                     <div style="display: flex; justify-content: space-between">
-                                        <span>{{ posts.description }}</span>
-                                        <a href="{% url 'administrator:buy' posts.id %}" data-name="{{ posts.title }}" data-price="{{ posts.price }}" class="add-to-cart border border-primary   btn  btn-outline-primary ">Add to cart</a>
+                                        <span>{{ posts.post.description }}</span>
+                                        <a href="{% url 'administrator:credit_cart' %}"  class="add-to-cart border border-primary   btn  btn-outline-primary ">تکمیل خرید</a>
 
                                 </div>
+                                    <div style="display: flex; justify-content: end; margin-top: 10px">
+                                        <a style="border-radius: 200px" href="{% url 'administrator:delete' posts.id %}" class="delete border border-danger   btn  btn-outline-danger ">delete</a>
 
+                                    </div>
                                 </div>
 
 
